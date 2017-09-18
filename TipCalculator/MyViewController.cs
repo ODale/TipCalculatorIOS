@@ -47,7 +47,17 @@ namespace TipCalculator
 
             //add all the child views (controls defined about) to screen (root view)
             View.AddSubviews(totalAmount, calcButton, resultLabel);
-
+            
+            //add touch event handler, anonymous delegate method
+            calcButton.TouchUpInside += delegate (object sender, EventArgs e)
+            {
+                //review first responder*
+                totalAmount.ResignFirstResponder();
+                //get the amount entered by the user
+                Double.TryParse(totalAmount.Text, out double amount);
+                //calcualte and display the tip
+                resultLabel.Text = string.Format("Tip is {0:C}", amount * 0.2);
+            };
 
         }
 
